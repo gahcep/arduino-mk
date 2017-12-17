@@ -142,6 +142,10 @@ ifdef WITH_WIRE
 -include mkfiles/Wire.mk
 endif
 
+ifdef WITH_SPI
+-include mkfiles/SPI.mk
+endif
+
 #
 ## Flags
 
@@ -244,29 +248,37 @@ clean:
 
 help:
 	@echo 
-	@echo "Usage: make <targets> [BRD=<board>] [PORT=<port>] [BAUD=<baud>] [WITH_WIRE]"
+	@echo "Usage: make <targets> [BRD=<board>] [PORT=<port>] [BAUD=<baud>] [WITH_WIRE=1] [WITH_SPI=1]"
 	@echo
 	@echo "  ENV:"
 	@echo
-	@echo "    BRD    - Type of Arduino board. For a list of possible values check the board.txt"
-	@echo "             or this Makefile's source"
-	@echo "              Default: AVR_NANO"
+	@echo "    BRD"
+	@echo "        Type of Arduino board. For a list of possible values check the board.txt"
+	@echo "        or this Makefile's source. Default: AVR_NANO"
 	@echo
-	@echo "    PORT    - Communication port:"
-	@echo "                * COMx - for Windows [MinGW] if [0 < x < 9]"
-	@echo "                * \\\\.\\COMx - for Windows [MinGW] if x >= 10"  
-	@echo "                * /dev/ttySx - for Linux (classic)"
-	@echo "                * /dev/ttyUSBx - for Linux (RS232 adapter, i.e. FTDI232)"
-	@echo "              Default: /dev/ttyS0"
+	@echo "    PORT"
+	@echo "        Communication port:"
+	@echo "            * COMx - for Windows [MinGW] if [0 < x < 9]"
+	@echo "            * \\\\.\\COMx - for Windows [MinGW] if x >= 10"  
+	@echo "            * /dev/ttySx - for Linux (classic)"
+	@echo "            * /dev/ttyUSBx - for Linux (RS232 adapter, i.e. FTDI232)"
+	@echo "          Default: /dev/ttyS0"
 	@echo
-	@echo "    BAUD    - Serial port baudrate. Possible values:"
-	@echo "                ${PrettifyBaudRates}"
-	@echo "              Default: 57600"
+	@echo "    BAUD"
+	@echo "        Serial port baudrate. Possible values:"
+	@echo "            ${PrettifyBaudRates}"
+	@echo "          Default: 57600"
+	@echo
+	@echo "    WITH_WIRE"
+	@echo "        Includes Arduino's Wire library to the project"
+	@echo
+	@echo "    WITH_SPI"
+	@echo "        Includes Arduino's SPI library to the project"
 	@echo
 	@echo
 	@echo "  targets:"
 	@echo
-	@echo "    help    - Prints usage"
-	@echo "    fwimage - Builds firmware image (elf file)"
-	@echo "    upload  - Uploads the HEX file to Arduino"
-
+	@echo "    help        - Prints usage"
+	@echo "    fwimage     - Builds firmware image (elf file)"
+	@echo "    upload      - Uploads the HEX file to Arduino"
+	@echo
