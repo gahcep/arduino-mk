@@ -12,6 +12,10 @@
 #include <HID.h>
 #endif
 
+#ifdef USE_LIBRARY_SSERIAL
+#include <SoftwareSerial.h>
+#endif
+
 // Declared weak in Arduino.h to allow user redefinitions.
 int atexit(void (* /*func*/ )()) { return 0; }
 

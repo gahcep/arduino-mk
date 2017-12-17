@@ -126,14 +126,13 @@ INCLUDE_DIRS=-I$(ARDUINO_CORES_PATH) -I$(ARDUINO_VAR_PATH)/$(BUILD_VARIANT)
 
 LDFLAGS=-lm
 
-CPPFLAGS=
-
 # Main static library that holds all other
 DEPS = $(BUILD_DIR)/core.a
 
 OBJECTS = $(CXXSRC:.cpp=.cpp.o) $(CSRC:.c=.c.o) $(ASRC:.S=.S.o)
 OBJS = $(addprefix $(BUILD_DIR)/,$(OBJECTS))
 
+Ext_CPPFLAGS=
 
 #
 ## Additional Arduino libraries
@@ -150,10 +149,16 @@ ifdef WITH_HID
 -include mkfiles/HID.mk
 endif
 
+ifdef WITH_SSERIAL
+-include mkfiles/SoftwareSerial.mk
+endif
+
+CPPFLAGS+=${Ext_CPPFLAGS}
+
 #
 ## Flags
 
-GENERAL_FLAGS=-c -g -mmcu=$(MCU) -MMD -DF_CPU=$(F_CPU) -DARDUINO=10803 -DARDUINO_${BRD} -DARDUINO_ARCH_AVR
+GENERAL_FLAGS=-c -g -mmcu=$(MCU) -MMD -DF_CPU=$(F_CPU) -DARDUINO_${BRD} -DARDUINO_ARCH_AVR
 
 # -- [-x] option lets you override the default by specifying the language of
 #    the source file, rather than inferring the language from the file suffix.
@@ -252,7 +257,7 @@ clean:
 
 help:
 	@echo 
-	@echo "Usage: make <targets> [BRD=<board>] [PORT=<port>] [BAUD=<baud>] [WITH_WIRE=1] [WITH_SPI=1] [WITH_HID=1]"
+	@echo "Usage: make <targets> [BRD=<board>] [PORT=<port>] [BAUD=<baud>] [WITH_WIRE=1] [WITH_SPI=1] [WITH_HID=1] [WITH_SSERIAL=1]"
 	@echo
 	@echo "  ENV:"
 	@echo
@@ -282,6 +287,8 @@ help:
 	@echo "    WITH_HID"
 	@echo "        Includes Arduino's HID library to the project"
 	@echo
+	@echo "    WITH_SSERIAL"
+	@echo "        Includes Arduino's Software Serial library to the project"
 	@echo
 	@echo "  targets:"
 	@echo
