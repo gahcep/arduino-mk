@@ -8,6 +8,10 @@
 #include <SPI.h>
 #endif
 
+#ifdef USE_LIBRARY_HID
+#include <HID.h>
+#endif
+
 // Declared weak in Arduino.h to allow user redefinitions.
 int atexit(void (* /*func*/ )()) { return 0; }
 

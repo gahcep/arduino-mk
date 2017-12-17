@@ -146,6 +146,10 @@ ifdef WITH_SPI
 -include mkfiles/SPI.mk
 endif
 
+ifdef WITH_HID
+-include mkfiles/HID.mk
+endif
+
 #
 ## Flags
 
@@ -248,7 +252,7 @@ clean:
 
 help:
 	@echo 
-	@echo "Usage: make <targets> [BRD=<board>] [PORT=<port>] [BAUD=<baud>] [WITH_WIRE=1] [WITH_SPI=1]"
+	@echo "Usage: make <targets> [BRD=<board>] [PORT=<port>] [BAUD=<baud>] [WITH_WIRE=1] [WITH_SPI=1] [WITH_HID=1]"
 	@echo
 	@echo "  ENV:"
 	@echo
@@ -274,6 +278,9 @@ help:
 	@echo
 	@echo "    WITH_SPI"
 	@echo "        Includes Arduino's SPI library to the project"
+	@echo
+	@echo "    WITH_HID"
+	@echo "        Includes Arduino's HID library to the project"
 	@echo
 	@echo
 	@echo "  targets:"
